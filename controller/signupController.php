@@ -34,8 +34,6 @@ function signup( $post ) {
       $user               = new User( $data );
       $user->createUser();
 
-      # Todo add a popup to signal the creation of the user
-      # Todo mailing to confirm the account
       header( 'location: index.php ');
   }
   catch (Exception $e) {

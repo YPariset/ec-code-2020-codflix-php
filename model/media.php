@@ -88,19 +88,34 @@ class Media {
   * -------- GET LIST --------
   ***************************/
 
-  public static function filterMedias( $title ) {
+  public static function filterMedias($title = null, $type = null) : array
+  {
+      // Open database connection
+      $db = init_db();
+      $sql = "SELECT * FROM media WHERE ";
 
-    // Open database connection
-    $db   = init_db();
+      $fields = [];
 
-    $req  = $db->prepare( "SELECT * FROM media WHERE status = 'available'" );
-    $req->execute( array( '%' . $title . '%' ));
+      if ($title != null) {
+          array_push($fields, "title LIKE '%" . $title . "%'");
+      }
 
-    // Close databse connection
-    $db   = null;
+      if ($type != null) {
+          array_push($fields, "type = '" . $type . "'");
+      }
 
-    return $req->fetchAll();
+      if (sizeof($fields) > 0) {
+          $sql .= join(" AND ", $fields);
+      }
+      else {
+          $sql .= "1";
+      }
+      $sql .= " ORDER BY title DESC";
 
-  }
-
+      $req = $db->prepare($sql);
+      $req->execute();
+      // Close database connection
+      $db = null;
+      return $req->fetchAll();
+    }
 }

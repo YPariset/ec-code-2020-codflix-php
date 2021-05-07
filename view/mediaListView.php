@@ -13,8 +13,16 @@
     </div>
 </div>
 
+<div class="btn-group">
+    <a class="dropdown-item" href="index.php?">All</a>
+    <a class="dropdown-item" href="index.php?type=film">Films</a>
+    <a class="dropdown-item" href="index.php?type=serie">Séries</a>
+</div>
+
 <div class="media-list">
-    <?php foreach( $medias as $media ): ?>
+    <?php 
+    foreach( $medias as $media ): 
+    if ($media['status'] == "available") { ?>
         <a class="item" href="index.php?media=<?= $media['id']; ?>">
             <div class="video">
                 <div>
@@ -24,9 +32,8 @@
             </div>
             <div class="title"><?= $media['title']; ?></div>
         </a>
-    <?php endforeach; ?>
+    <?php } endforeach; ?>
 </div>
-
 
 <?php $content = ob_get_clean(); ?>
 

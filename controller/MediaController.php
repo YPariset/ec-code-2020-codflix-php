@@ -16,3 +16,9 @@ function mediaPage() {
   require('view/mediaListView.php');
 
 }
+
+function mediaDetails($id){
+  $media = Media::getMediaById($id);
+  require('view/mediaDetailsView.php');
+}
+

@@ -20,7 +20,7 @@
                             if (isset($_GET["action"]) && $_GET["action"] === "media") {
                                 echo "<li class=\"active\"><a href=\"index.php?action=media\">Médias</a></li>";
                             } else {
-                                echo "<li><a href=\"index.php?action=media\">Médias</a></li>";
+                                echo "<li><a href=\"index.php\">Médias</a></li>";
                             }
 
                             if (isset($_GET["action"]) && $_GET["action"] === "history") {

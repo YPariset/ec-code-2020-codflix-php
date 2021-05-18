@@ -4,10 +4,13 @@ require_once( 'controller/homeController.php' );
 require_once( 'controller/loginController.php' );
 require_once( 'controller/signupController.php' );
 require_once( 'controller/mediaController.php' );
+require_once( 'controller/contactController.php' );
 
 /**************************
 * ----- HANDLE ACTION -----
 ***************************/
+
+$user_id = isset( $_SESSION['user_id'] ) ? $_SESSION['user_id'] : false;
 
 if ( isset( $_GET['action'] ) ):
 
@@ -28,6 +31,18 @@ if ( isset( $_GET['action'] ) ):
 
     break;
 
+    case 'media':
+      if(empty($user_id)): 
+        header('Location:index.php');
+      else: 
+        mediaPage();
+      endif;
+    break;
+
+    case 'contact':
+      sendMail();
+    break;
+
     case 'logout':
 
       logout();
@@ -38,7 +53,6 @@ if ( isset( $_GET['action'] ) ):
 
 else:
 
-  $user_id = isset( $_SESSION['user_id'] ) ? $_SESSION['user_id'] : false;
   $media_id=isset($_GET['media']) ? $_GET['media'] : null;
 
   if ($media_id):

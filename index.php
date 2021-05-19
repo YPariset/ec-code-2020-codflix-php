@@ -5,6 +5,7 @@ require_once( 'controller/loginController.php' );
 require_once( 'controller/signupController.php' );
 require_once( 'controller/mediaController.php' );
 require_once( 'controller/contactController.php' );
+require_once( 'controller/profileController.php' );
 
 /**************************
 * ----- HANDLE ACTION -----
@@ -13,7 +14,6 @@ require_once( 'controller/contactController.php' );
 $user_id = isset( $_SESSION['user_id'] ) ? $_SESSION['user_id'] : false;
 
 if ( isset( $_GET['action'] ) ):
-
   switch( $_GET['action']):
 
     case 'login':
@@ -43,10 +43,32 @@ if ( isset( $_GET['action'] ) ):
       sendMail();
     break;
 
+    case 'profile':
+      if(empty($user_id)): 
+        header('Location:index.php');
+      else: 
+        profilePage();
+      endif;
+    break;
+
+    case 'newPassword':
+      if(empty($user_id)): 
+        header('Location:index.php');
+      else: 
+        setNewPassword();
+      endif;
+    break;
+
+    case 'newMail':
+      if(empty($user_id)): 
+        header('Location:index.php');
+      else: 
+        setNewEmail();
+      endif;
+    break;
+
     case 'logout':
-
       logout();
-
     break;
 
   endswitch;
